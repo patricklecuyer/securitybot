@@ -33,6 +33,42 @@ If the following were all generated successfully, Securitybot should be up and r
 To test it, message the bot user it's assigned to and say `hi`.
 To test the process of dealing with an alert, message `test` to test the bot.
 
+#### Environment variable
+To prevent having to modify the scripts, you can set the following environment variables to configure the bot:
+
+|Variable|Setting|
+|--------|-------|
+|SLACK_API_TOKEN|Slack API Token|
+|REPORTING_CHANNEL|Slack Channel ID|
+|DUO_INTEGRATION_KEY|Duo Integration Key|
+|DUO_SECRET_KEY|Duo Secret Key|
+|DUO_ENDPOINT|Duo Endpoint|
+|DB_HOST|MySQL Hostname|
+|DB_USER|MySQL Username|
+|DB_PASS|MySQL Password|
+|DB_NAME|MySQL Database name|
+
+#### Docker
+
+Dockerfile is included to generate a Docker Image to run the bot.  Entrypoint script will wait for database startup and initialize database if it does not already exist.  Entrypoint takes one of two arguments:
+
+* bot: Starts the main bot
+* fronend: starts the frontend and API server
+
+Run configuration will be based on the environment variables above.
+
+Example:
+
+Bot:
+```
+docker run -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password -e SLACK_API_TOKEN=<your api token> -e DUO_INTEGRATION_KEY=<your integration key> -e DUO_SECRET_KEY=<your secret key> -e DUO_ENDPOINT=<your endpoint> quay.io/patl/securitybot bot
+```
+
+Frontend:
+```
+docker run -p 8888:8888 -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password quay.io/patl/securitybot frontend
+```
+
 ## Architecture
 Securitybot was designed to be as modular as possible.
 This means that it's possible to easily swap out chat systems, 2FA providers, and alerting data sources.

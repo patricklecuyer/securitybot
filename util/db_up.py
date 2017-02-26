@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 import MySQLdb
 import sys
+from os import getenv
 
 # DB CONFIG GOES HERE
-host = 'localhost'
-user = 'root'
-passwd= ''
+host = getenv('DB_HOST', 'localhost')
+user = getenv('DB_USER', 'root')
+passwd=getenv('DB_PASS', '')
+dbname=getenv('DB_NAME', 'securitybot')
 
 db = MySQLdb.connect(host=host,
                      user=user,
                      passwd=passwd,
-                     db='securitybot')
+                     db=dbname)
 
 cur = db.cursor()
 
