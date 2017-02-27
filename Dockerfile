@@ -2,6 +2,8 @@ FROM python:2.7
 
 COPY . /securitybot
 
+USER securitybot
+
 env PYTHONPATH $PYTHONPATH:/securitybot
 
 RUN apt-get update && \

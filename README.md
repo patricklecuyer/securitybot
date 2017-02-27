@@ -53,7 +53,7 @@ To prevent having to modify the scripts, you can set the following environment v
 Dockerfile is included to generate a Docker Image to run the bot.  Entrypoint script will wait for database startup and initialize database if it does not already exist.  Entrypoint takes one of two arguments:
 
 * bot: Starts the main bot
-* fronend: starts the frontend and API server
+* frontend: starts the frontend and API server
 
 Run configuration will be based on the environment variables above.
 
@@ -61,12 +61,14 @@ Example:
 
 Bot:
 ```
-docker run -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password -e SLACK_API_TOKEN=<your api token> -e DUO_INTEGRATION_KEY=<your integration key> -e DUO_SECRET_KEY=<your secret key> -e DUO_ENDPOINT=<your endpoint> quay.io/patl/securitybot bot
+docker build --tag securitybot
+docker run -e DB_NAME=securitybot DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password -e SLACK_API_TOKEN=<your api token> -e DUO_INTEGRATION_KEY=<your integration key> -e DUO_SECRET_KEY=<your secret key> -e DUO_ENDPOINT=<your endpoint> securitybot bot
 ```
 
 Frontend:
 ```
-docker run -p 8888:8888 -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password quay.io/patl/securitybot frontend
+docker build --tag securitybot
+docker run -p 8888:8888 -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password securitybot frontend
 ```
 
 ## Architecture
