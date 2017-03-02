@@ -2,8 +2,10 @@ language: python
 python:
     - "2.7"
 sudo: false
+
 install: pip install -r requirements.txt
+
 script:
+    - docker build .
     - flake8 securitybot/
     - PYTHONPATH=$(pwd) py.test -v tests/
-
