@@ -1,0 +1,37 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+    #volumes:
+    #  - mysql-securitybot:/var/lib/mysql
+    ports:
+      - "3306"
+  bot:
+    build: .
+    image: securitybot
+    command: bot
+    environment:
+      - SLACK_API_TOKEN=${SLACK_API_TOKEN}
+      - REPORTING_CHANNEL=${REPORTING_CHANNEL}
+      - DUO_INTEGRATION_KEY=${DUO_INTEGRATION_KEY}
+      - DUO_SECRET_KEY=${DUO_SECRET_KEY}
+      - DUO_ENDPOINT=${DUO_ENDPOINT}
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=securitybot
+  frontend:
+    build: .
+    image: securitybot
+    command: frontend
+    ports:
+      - "8888:8888"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=securitybot
+#volumes:
+# mysql-securitybot:

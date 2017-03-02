@@ -71,6 +71,8 @@ docker build --tag securitybot
 docker run -p 8888:8888 -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password securitybot frontend
 ```
 
+A docker-compose file is provided for ease of use. docker-compose up will start database, bot and frontend.  Frontend and API server will be available on port 8888.  Database content will be stored in persistent volume `mysql-securitybot`. Slack-related, Duo related and database password environment variables must be set for docker-compose stack to run properly.
+
 ## Architecture
 Securitybot was designed to be as modular as possible.
 This means that it's possible to easily swap out chat systems, 2FA providers, and alerting data sources.
