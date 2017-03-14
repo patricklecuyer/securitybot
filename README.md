@@ -62,7 +62,7 @@ Example:
 Bot:
 ```
 docker build --tag securitybot
-docker run -e DB_NAME=securitybot DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password -e SLACK_API_TOKEN=<your api token> -e DUO_INTEGRATION_KEY=<your integration key> -e DUO_SECRET_KEY=<your secret key> -e DUO_ENDPOINT=<your endpoint> securitybot bot
+docker run -e DB_NAME=securitybot -e DB_USER=root -e DB_HOST=127.0.0.1 -e DB_PASS=password -e SLACK_API_TOKEN=<your api token> -e REPORTING_CHANNEL=security-notifications -e DUO_INTEGRATION_KEY=<your integration key>  -e DUO_SECRET_KEY=<your secret key> -e DUO_ENDPOINT=<your endpoint> securitybot bot
 ```
 
 Frontend:
