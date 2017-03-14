@@ -1,11 +1,11 @@
-version: '2'
+version: '3'
 services:
   db:
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
-    #volumes:
-    #  - mysql-securitybot:/var/lib/mysql
+    volumes:
+      - mysql-securitybot:/var/lib/mysql
     ports:
       - "3306"
   bot:
@@ -33,5 +33,5 @@ services:
       - DB_USER=root
       - DB_PASS=${DB_PASS}
       - DB_NAME=securitybot
-#volumes:
-# mysql-securitybot:
+volumes:
+ mysql-securitybot:
